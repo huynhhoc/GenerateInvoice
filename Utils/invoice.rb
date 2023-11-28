@@ -1,6 +1,6 @@
+# invoice.rb
+
 require 'prawn'
-require 'csv'
-require 'fileutils'
 
 class Invoice
   attr_accessor :invoice_number, :date, :client_name, :services, :company_info, :client_info, :invoice_total, :other_info
@@ -105,62 +105,3 @@ class Invoice
     pdf.render_file(File.join(output_folder, "invoice_#{invoice_number}.pdf"))
   end
 end
-
-def load_data_from_csv(csv_file)
-  data = []
-  CSV.foreach(csv_file, headers: true) do |row|
-    data << row.to_h
-  end
-  data
-end
-
-# Example usage:
-csv_file = 'Data/invoicedata.csv'
-invoice_data = load_data_from_csv(csv_file)
-
-# Example Company Information
-company_info = {
-  company_name: "Your Company",
-  street: "123 Main Street",
-  city_state_country: "City, State, Country",
-  zipcode: "12345",
-  email: "info@yourcompany.com"
-}
-
-invoice_data.each do |data|
-  # Create an instance of Invoice
-  invoice = Invoice.new(data['InvoiceNumber'], data['Date'], data['ClientName'])
-
-  # Add services
-  services_data = invoice_data.select { |item| item['InvoiceNumber'] == data['InvoiceNumber'] }
-  services_data.each do |service_data|
-    invoice.add_service(service_data['Description'], service_data['Quantity'].to_i, service_data['Rate'].to_f)
-  end
-
-  # Set client information
-  client_info = {
-    invoice_number: data['InvoiceNumber'],
-    date: data['Date'],
-    customer_id: "12345",  # You can replace this with the actual customer ID
-    name: data['ClientName'],
-    street: "456 Client Street",  # Replace with the client's actual street address
-    city_state_country: "Client City, State, Country",  # Replace with the client's actual city, state, and country
-    phone: "9876543210"  # Replace with the client's actual phone number
-  }
-  invoice.set_client_info(client_info)
-
-  # Set company information
-  invoice.set_company_info(company_info)
-
-  # Set other information
-  other_info = {
-    payment_days: 30,  # Replace with the actual payment terms
-    special_instructions: "Please make the payment by the due date."
-  }
-  invoice.set_other_info(other_info)
-
-  # Generate PDF
-  invoice.generate_pdf
-end
-
-puts "PDF invoices generated successfully."
