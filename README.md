@@ -11,8 +11,8 @@ This project provides scripts to set up a PostgreSQL database for an invoice gen
 ## Setup
 
 1. Database Configuration
-    * Ensure PostgreSQL is running.
-    * Update the PostgreSQL database connection details (dbname, user, password) in the script files (create_table_and_sampledata.rb and main.rb).
+* Ensure PostgreSQL is running.
+* Update the PostgreSQL database connection details (dbname, user, password) in the script files (create_table_and_sampledata.rb and main.rb).
 
 2. Create Tables and Populate Sample Data
 
@@ -34,13 +34,13 @@ Replace 2023001 with the desired invoice number in the main.rb script.
 
 ## Project Structure
 
-    1. Utils Folder
-        * utils.rb: Contains utility functions for database operations.
-        * invoice.rb: Defines the Invoice class for generating PDF invoices.
+1. Utils Folder
+    * utils.rb: Contains utility functions for database operations.
+    * invoice.rb: Defines the Invoice class for generating PDF invoices.
 
-    2. Scripts
-        * create_table_and_sampledata.rb: Creates tables and populates sample data.
-        * main.rb: Generates PDF invoices for specified invoice numbers.
+2. Scripts
+    * create_table_and_sampledata.rb: Creates tables and populates sample data.
+    * main.rb: Generates PDF invoices for specified invoice numbers.
 
 ## Error Handling
 
