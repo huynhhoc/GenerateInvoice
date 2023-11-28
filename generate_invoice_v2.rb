@@ -77,15 +77,14 @@ class Invoice
     line_spacing = 25
 
     services.each_with_index do |service, index|
-    pdf.draw_text("#{index + 1}", at: [10, pdf.cursor - line_spacing])
-    pdf.draw_text("#{service[:description]}", at: [50, pdf.cursor - line_spacing])
-    pdf.draw_text("", at: [170, pdf.cursor - line_spacing])  # You can add description here if needed
-    pdf.draw_text("#{service[:quantity]}", at: [300, pdf.cursor - line_spacing])
-    pdf.draw_text("$#{service[:quantity] * service[:rate]}", at: [400, pdf.cursor - line_spacing])
-    pdf.move_down line_spacing
+      pdf.draw_text("#{index + 1}", at: [10, pdf.cursor - line_spacing])
+      pdf.draw_text("#{service[:description]}", at: [50, pdf.cursor - line_spacing])
+      pdf.draw_text("", at: [170, pdf.cursor - line_spacing])  # You can add description here if needed
+      pdf.draw_text("#{service[:quantity]}", at: [300, pdf.cursor - line_spacing])
+      pdf.draw_text("$#{service[:quantity] * service[:rate]}", at: [400, pdf.cursor - line_spacing])
+      pdf.move_down line_spacing
     end
-
-
+    pdf.move_down line_spacing
     # Last row: Total amount
     pdf.draw_text("", at: [10, pdf.cursor - 10])
     pdf.draw_text("", at: [50, pdf.cursor - 10])
@@ -133,7 +132,10 @@ invoice_data.each do |data|
   invoice = Invoice.new(data['InvoiceNumber'], data['Date'], data['ClientName'])
 
   # Add services
-  invoice.add_service(data['Description'], data['Quantity'].to_i, data['Rate'].to_f)
+  services_data = invoice_data.select { |item| item['InvoiceNumber'] == data['InvoiceNumber'] }
+  services_data.each do |service_data|
+    invoice.add_service(service_data['Description'], service_data['Quantity'].to_i, service_data['Rate'].to_f)
+  end
 
   # Set client information
   client_info = {
