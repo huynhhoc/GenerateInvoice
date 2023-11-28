@@ -44,10 +44,10 @@ Replace 2023001 with the desired invoice number in the main.rb script.
 
 ## Error Handling
 
-    Duplicate Key Violation: If you encounter a duplicate key violation error, the scripts include error handling to notify you and suggest handling options.
+Duplicate Key Violation: If you encounter a duplicate key violation error, the scripts include error handling to notify you and suggest handling options.
 
 ## Additional Notes
 
-    Customize the invoice generation logic, payment terms, and other details in the scripts based on your requirements.
+Customize the invoice generation logic, payment terms, and other details in the scripts based on your requirements.
 
-    Feel free to extend the functionality of the Invoice class or add more utility functions to suit your needs.
+Feel free to extend the functionality of the Invoice class or add more utility functions to suit your needs.
