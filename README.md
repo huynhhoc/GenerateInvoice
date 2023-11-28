@@ -16,18 +16,21 @@ This project provides scripts to set up a PostgreSQL database for an invoice gen
 
     2. Create Tables and Populate Sample Data
 
-        Run the create_table_and_sampledata.rb script to create necessary tables and populate them with sample data.
+    Run the create_table_and_sampledata.rb script to create necessary tables and populate them with sample data.
 
-        ``ruby create_table_and_sampledata.rb``
+    ```
+    ruby create_table_and_sampledata.rb
 
-
+    ```
 ## Generate PDF Invoices
 
-    Run the main.rb script to generate PDF invoices for specified invoice numbers.
+Run the main.rb script to generate PDF invoices for specified invoice numbers.
 
-    ``ruby main.rb``
+```
+ruby main.rb
 
-    Replace 2023001 with the desired invoice number in the main.rb script.
+```    
+Replace 2023001 with the desired invoice number in the main.rb script.
 
 ## Project Structure
 
