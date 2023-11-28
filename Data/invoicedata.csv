@@ -1,0 +1,6 @@
+InvoiceNumber,Date,ClientName,Description,Quantity,Rate
+2023001,2023-11-28,Client XYZ,Construction Work 1,5,1000
+2023001,2023-11-28,Client XYZ,Construction Work 2,5,1000
+2023001,2023-11-28,Client XYZ,Construction Work 3,5,1000
+2023002,2023-11-29,Client ABC,Material Supply,10,500
+2023003,2023-11-30,Client DEF,Consulting Services,8,1200

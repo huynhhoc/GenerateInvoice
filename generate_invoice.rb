@@ -2,6 +2,8 @@
 # gem install prawn
 
 require 'prawn'
+require 'csv'
+require 'fileutils'
 
 class Invoice
   attr_accessor :invoice_number, :date, :client_name, :services
@@ -36,14 +38,30 @@ class Invoice
     pdf.text "Total Amount Due: $#{total_amount}", align: :center
     pdf.text "------------------------------------", align: :center
 
-    pdf.render_file("invoice_#{invoice_number}.pdf")
+    output_folder = 'Invoices'
+    FileUtils.mkdir_p(output_folder) unless File.directory?(output_folder)
+
+    pdf.render_file(File.join(output_folder, "invoice_#{invoice_number}.pdf"))
   end
 end
 
-# Example usage:
-invoice = Invoice.new("2023001", "2023-11-28", "Client XYZ")
-invoice.add_service("Construction Work", 5, 1000)
-invoice.add_service("Material Supply", 10, 500)
-invoice.generate_pdf
+def load_data_from_csv(csv_file)
+  data = []
+  CSV.foreach(csv_file, headers: true) do |row|
+    data << row.to_h
+  end
+  data
+end
+# Check if the current file is being run as the main program
+if __FILE__ == $PROGRAM_NAME
+  csv_file = 'Data/invoicedata.csv'
+  invoice_data = load_data_from_csv(csv_file)
 
-puts "PDF invoice generated successfully."
+  invoice_data.each do |data|
+    invoice = Invoice.new(data['InvoiceNumber'], data['Date'], data['ClientName'])
+    invoice.add_service(data['Description'], data['Quantity'].to_i, data['Rate'].to_f)
+    invoice.generate_pdf
+  end
+
+  puts "PDF invoices generated successfully."
+end
